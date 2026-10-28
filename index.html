@@ -66,7 +66,7 @@
             </div>
             <div class="field">
                 <label for="qty">Nº de paletes</label>
-                <input id="qty" type="number" min="1" step="1" inputmode="numeric" placeholder="Qtd">
+                <input id="qty" type="number" min="0" step="1" inputmode="numeric" placeholder="Qtd">
             </div>
         </div>
         <div class="selected" id="selectedLabel"></div>
@@ -113,7 +113,7 @@
                         <th>SKU</th>
                         <th class="num">Paletes</th>
                         <th>Destino</th>
-                        <th class="num box-col">Caixas</th>
+                        <th class="num">Caixas</th>
                         <th class="no-print">Ação</th>
                     </tr>
                 </thead>
@@ -163,7 +163,7 @@ let selected = null;
 
 function loadLocal() {
     try {
-        let saved = localStorage.getItem('tl_conferencia_data_v3');
+        let saved = localStorage.getItem('tl_conferencia_data_v4');
         if (saved) {
             let data = JSON.parse(saved);
             if (data.meta) {
@@ -193,7 +193,7 @@ function saveLocal() {
             origin: $('origin').value,
             destination: $('destination').value
         };
-        localStorage.setItem('tl_conferencia_data_v3', JSON.stringify({ currentTruck, items, meta }));
+        localStorage.setItem('tl_conferencia_data_v4', JSON.stringify({ currentTruck, items, meta }));
     } catch(e) {}
 }
 
@@ -287,17 +287,16 @@ document.addEventListener('click', e => {
 $('addBtn').onclick = () => {
     if (!selected) return;
     
-    let pallets = Number($('qty').value);
+    let pallets = Number($('qty').value || 0);
     let boxes = Number($('boxQty').value || 0);
     let dest = $('destination').value || 'Não informado';
     
-    if (!Number.isInteger(pallets) || pallets < 1) {
-        notice('Informe a quantidade de paletes (mín. 1).');
+    if (pallets < 0) pallets = 0;
+    if (boxes < 0) boxes = 0;
+    
+    if (pallets === 0 && boxes === 0) {
+        notice('Informe ao menos a quantidade de paletes ou caixas.');
         $('qty').focus();
-        return;
-    }
-    if (!Number.isInteger(boxes) || boxes < 0) {
-        notice('Caixas inválidas.');
         return;
     }
     

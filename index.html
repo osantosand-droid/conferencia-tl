@@ -76,7 +76,7 @@
             <div class="optional-box hidden" id="boxPanel">
                 <div class="field">
                     <label for="boxQty">Quantidade de caixas</label>
-                    <input id="boxQty" type="number" min="0" step="1" inputmode="numeric" placeholder="Deixe 0 se não precisar" value="0" disabled>
+                    <input id="boxQty" type="number" min="0" step="1" inputmode="numeric" placeholder="Qtd de caixas" value="0">
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
                         <th>SKU</th>
                         <th class="num">Paletes</th>
                         <th>Destino</th>
-                        <th class="num box-col hidden">Caixas</th>
+                        <th class="num box-col">Caixas</th>
                         <th class="no-print">Ação</th>
                     </tr>
                 </thead>
@@ -163,7 +163,7 @@ let selected = null;
 
 function loadLocal() {
     try {
-        let saved = localStorage.getItem('tl_conferencia_data_v2');
+        let saved = localStorage.getItem('tl_conferencia_data_v3');
         if (saved) {
             let data = JSON.parse(saved);
             if (data.meta) {
@@ -193,7 +193,7 @@ function saveLocal() {
             origin: $('origin').value,
             destination: $('destination').value
         };
-        localStorage.setItem('tl_conferencia_data_v2', JSON.stringify({ currentTruck, items, meta }));
+        localStorage.setItem('tl_conferencia_data_v3', JSON.stringify({ currentTruck, items, meta }));
     } catch(e) {}
 }
 
@@ -205,6 +205,7 @@ function saveLocal() {
 function clearSelection() {
     $('search').value = '';
     $('qty').value = '';
+    $('boxQty').value = '0';
     $('selectedLabel').textContent = '';
     $('suggestions').classList.add('hidden');
     selected = null;
@@ -214,9 +215,6 @@ function clearSelection() {
 function render() {
     let units = items.reduce((s, i) => s + (i.pallets || 0), 0);
     let boxes = items.reduce((s, i) => s + (i.boxes || 0), 0);
-    let showBoxes = items.some(i => (i.boxes || 0) > 0);
-    
-    document.querySelectorAll('.box-col').forEach(el => el.classList.toggle('hidden', !showBoxes));
     
     $('itemsList').innerHTML = items.length ? items.map((i, n) => `
         <tr>
@@ -225,14 +223,14 @@ function render() {
             <td>${esc(i.code)}</td>
             <td class="num">${fmt(i.pallets || 0)}</td>
             <td>${esc(i.destination || $('destination').value)}</td>
-            <td class="num box-col ${showBoxes ? '' : 'hidden'}">${fmt(i.boxes || 0)}</td>
+            <td class="num">${fmt(i.boxes || 0)}</td>
             <td class="no-print"><button class="secondary remove" data-remove="${n}">Excluir</button></td>
         </tr>`).join('') + `
         <tr class="report-total">
             <td colspan="3">Total (Todos Caminhões)</td>
             <td class="num">${fmt(units)}</td>
             <td></td>
-            <td class="num box-col ${showBoxes ? '' : 'hidden'}">${fmt(boxes)}</td>
+            <td class="num">${fmt(boxes)}</td>
             <td class="no-print"></td>
         </tr>` : '<tr><td colspan="7" class="empty">Nenhum produto adicionado ainda.</td></tr>';
         
@@ -335,10 +333,10 @@ $('closeTripBtn').onclick = () => {
 };
 
 $('toggleBoxes').onclick = () => {
-    let open = $('boxPanel').classList.toggle('hidden');
-    $('boxQty').disabled = !open;
-    $('toggleBoxes').textContent = open ? '− Ocultar caixas' : '＋ Informar caixas (opcional)';
-    if (!open) $('boxQty').value = '0';
+    let panel = $('boxPanel');
+    let isOpen = panel.classList.toggle('hidden');
+    $('toggleBoxes').textContent = isOpen ? '＋ Informar caixas (opcional)' : '− Ocultar caixas';
+    if (isOpen) $('boxQty').value = '0';
 };
 
 $('clearBtn').onclick = () => {
@@ -364,7 +362,8 @@ $('exportBtn').onclick = () => {
         ['Caminhão', 'SKU', 'Produto', 'Paletes', 'Destino', 'Caixas'],
         ...items.map(i => [i.truck || 1, i.code, i.name, i.pallets || 0, i.destination || '-', i.boxes || 0]),
         [],
-        ['Total de paletes', items.reduce((s, i) => s + (i.pallets || 0), 0)]
+        ['Total de paletes', items.reduce((s, i) => s + (i.pallets || 0), 0)],
+        ['Total de caixas', items.reduce((s, i) => s + (i.boxes || 0), 0)]
     ];
     let csv = '\ufeff' + rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(';')).join('\r\n');
     let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
@@ -403,7 +402,7 @@ $('pdfBtn').onclick = () => {
     
     const meta = [
         ['Data do embarque', $('date').value || '-'], ['Responsavel', $('checker').value || '-'],
-        ['Base de origem', $('origin').value || '-'], ['Destino Principal', $('destination').value || '-']
+        ['Base de origem', $('origin').value || '-'], ['Base de destino', $('destination').value || '-']
     ];
     
     const colW = 257, rowH = 34, mx = 40; 
@@ -415,10 +414,8 @@ $('pdfBtn').onclick = () => {
     }); 
     y -= 2*(rowH+6)+20;
     
-    const showBoxes = consolidated.some(i => (i.boxes||0) > 0);
-    
-    const widths = showBoxes ? [260, 70, 115, 70] : [300, 70, 145];
-    const headers = showBoxes ? ['Produto', 'Paletes', 'Destino', 'Caixas'] : ['Produto', 'Paletes', 'Destino'];
+    const widths = [225, 65, 115, 70];
+    const headers = ['Produto', 'Paletes', 'Destino', 'Caixas'];
     
     const xs = [40]; 
     for(let i=1; i<widths.length; i++) xs[i] = xs[i-1] + widths[i-1]; 
@@ -442,17 +439,17 @@ $('pdfBtn').onclick = () => {
         rect(40, y-rowHeight, tableW, rowHeight, '#CBD8E8', idx%2 ? '#F7F9FB' : '#FFFFFF');
         
         let name = cleanName(it.name);
-        if (name.length > 50) name = name.slice(0, 49) + '…';
+        if (name.length > 42) name = name.slice(0, 41) + '…';
         add(name, xs[0]+6, y-14, 8.5, false);
         add('SKU: ' + String(it.code??''), xs[0]+6, y-27, 7, false);
         
         add(String(it.pallets||0), xs[1]+6, y-21, 9, true);
         
         let dst = String(it.destination || '-');
-        if(dst.length > 20) dst = dst.slice(0, 19) + '…';
+        if(dst.length > 18) dst = dst.slice(0, 17) + '…';
         add(dst, xs[2]+6, y-21, 8.5, false);
         
-        if (showBoxes) add(String(it.boxes||0), xs[3]+6, y-21, 9, true);
+        add(String(it.boxes||0), xs[3]+6, y-21, 9, true);
         
         y -= rowHeight;
     });
@@ -460,11 +457,13 @@ $('pdfBtn').onclick = () => {
     rect(40, y-rowHeight, tableW, rowHeight, '#CBD8E8', '#FFFFFF');
     add('Total Consolidado', 46, y-21, 9, true);
     add(String(consolidated.reduce((a, i) => a + (i.pallets || 0), 0)), xs[1]+6, y-21, 9, true);
-    if(showBoxes) add(String(consolidated.reduce((a, i) => a + (i.boxes || 0), 0)), xs[3]+6, y-21, 9, true);
+    add('', xs[2]+6, y-21, 9, true);
+    add(String(consolidated.reduce((a, i) => a + (i.boxes || 0), 0)), xs[3]+6, y-21, 9, true);
     y -= rowHeight+22;
     
     add('Caminhões envolvidos: ' + currentTruck, 40, y, 9, true); y-=15;
-    add('Total de paletes embarcados: ' + consolidated.reduce((a, i) => a + (i.pallets || 0), 0), 40, y, 9, true);
+    add('Total de paletes: ' + consolidated.reduce((a, i) => a + (i.pallets || 0), 0), 40, y, 9, true); y-=15;
+    add('Total de caixas: ' + consolidated.reduce((a, i) => a + (i.boxes || 0), 0), 40, y, 9, true);
 
     const stream = lines.join('\n') + '\n';
     const objects = [];

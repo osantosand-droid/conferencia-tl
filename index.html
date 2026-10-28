@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1526"><title>Conferência de Embarque | Grupo TL</title>
+<style>
+:root{--primary:#005ce6;--dark:#0b1526;--bg:#f4f6f8;--card:#fff;--text:#22272b;--muted:#68727b;--line:#dfe4e8;--green:#18794e;--red:#b42318}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;font-size:16px}.top{background:var(--dark);color:white;padding:18px max(16px,env(safe-area-inset-left));}.top-inner{max-width:1000px;margin:auto;display:flex;align-items:center;gap:14px}.logo{background:linear-gradient(135deg, #005ce6 0%, #00b4d8 100%);border-radius:12px;width:46px;height:46px;display:grid;place-items:center;font-weight:900;font-size:19px;flex-shrink:0;color:white;box-shadow:0 4px 10px rgba(0,92,230,0.3)}.top h1{font-size:20px;margin:0 0 4px}.top p{font-size:13px;margin:0;color:#9cb3c9}.wrap{max-width:1000px;margin:auto;padding:16px 12px 40px}.intro{margin:8px 4px 16px}.intro h2{font-size:23px;margin:0 0 6px}.intro p{margin:0;color:var(--muted);line-height:1.45}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px;margin-bottom:14px;min-width:0}.card h3{font-size:17px;margin:0 0 13px;display:flex;align-items:center;justify-content:space-between}.card-title-left{display:flex;align-items:center;gap:0}.step{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:8px;background:#e6f0ff;color:#0040a0;margin-right:8px;font-size:14px;flex-shrink:0}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}label{font-size:13px;font-weight:700;color:#4b555e}input,select,button{font:inherit}input,select{width:100%;min-width:0;border:1px solid #cbd3d9;border-radius:10px;padding:13px 12px;background:white;color:var(--text);font-size:16px;min-height:48px}input:focus,select:focus{outline:2px solid #80bfff;border-color:var(--primary)}button{border:0;border-radius:10px;padding:13px 15px;min-height:46px;font-weight:700;cursor:pointer;transition:opacity 0.2s}.primary{background:var(--primary);color:white}.darkbtn{background:var(--dark);color:white}.secondary{background:#eef1f3;color:#20262b;border:1px solid #d9dfe3}.danger{background:#fff0ef;color:var(--red)}button:disabled{opacity:.45;cursor:not-allowed}.hint{font-size:13px;line-height:1.45;color:var(--muted);margin:10px 0 0}.sku-entry{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:10px;align-items:end}.sku-entry .field{position:relative}.suggestions{position:absolute;z-index:5;top:100%;left:0;right:0;background:white;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 22px #0002;max-height:240px;overflow:auto}.suggestion{padding:12px;border-bottom:1px solid var(--line);cursor:pointer;line-height:1.35}.suggestion:last-child{border-bottom:0}.suggestion:active,.suggestion:hover{background:#f0f5ff}.suggestion small{display:block;color:var(--muted);margin-top:3px}.add-row{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}.add-row button{flex:1 1 200px}.selected{font-size:13px;color:var(--green);font-weight:700;margin:9px 0 0;min-height:16px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:middle}th{font-size:12px;color:var(--muted)}td.num,th.num{text-align:right}.remove{padding:7px 9px;min-height:34px;font-size:12px}.empty{text-align:center;color:var(--muted);padding:22px 8px}.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.stat{border:1px solid var(--line);background:#f8f9fa;border-radius:11px;padding:12px}.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.stat strong{font-size:23px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.actions button{flex:1 1 150px}.notice{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;display:none;padding:12px 20px;border-radius:10px;background:#25282b;color:#fff;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15);}.notice.show{display:block;animation:popIn 0.3s ease-out}@keyframes popIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}.status{font-size:12px;color:var(--muted);margin-top:10px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:6px 10px 18px}.hidden{display:none!important}.optional-box{margin-top:10px;padding:12px;border:1px dashed #cbd3d9;border-radius:10px;background:#fafbfc}.report-head{display:none}.report-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 18px}.report-meta div{border:1px solid #cbd8e8;border-radius:5px;padding:8px;font-size:12px;min-width:0}.report-meta small{display:block;color:#68727b;text-transform:uppercase;font-size:9px;letter-spacing:.06em;margin-bottom:3px}.report-meta strong{overflow-wrap:anywhere}.destination-title{font-weight:700;margin:16px 0 8px}.report-table th,.report-table td{border:1px solid #cbd8e8}.report-total td{font-weight:700;background:#f7f9fb}.box-col.hidden{display:none!important}.sync-badge{font-size:11px;padding:4px 8px;border-radius:20px;background:#eef1f3;color:#4b555e;font-weight:bold;}
+@media(max-width:520px){.report-meta{grid-template-columns:repeat(2,minmax(0,1fr))}.top{padding:15px 14px}.top h1{font-size:18px}.wrap{padding:12px 10px 28px}.intro h2{font-size:21px}.card{padding:14px;border-radius:12px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.sku-entry{grid-template-columns:minmax(0,1fr) 92px;gap:8px}.sku-entry input{padding:12px 9px}.summary{grid-template-columns:1fr 1fr 1fr}.stat{padding:10px 8px}.stat strong{font-size:20px}.stat small{font-size:11px}th,td{padding:10px 7px}.actions{display:grid;grid-template-columns:1fr}.actions button{width:100%}}
+@media print{body{background:#fff;font-size:12px}.report-head{display:block}.report-meta{grid-template-columns:repeat(3,minmax(0,1fr))}.report-table th,.report-table td{border:1px solid #cbd8e8}.top{background:#fff;color:#111;border-bottom:2px solid var(--primary);padding:10px 0}.top p{color:#444}.wrap{padding:10px 0;max-width:none}.intro p,.hint,.no-print,.footer{display:none!important}.card{border:1px solid #ccc;border-radius:0;padding:10px;margin-bottom:10px;break-inside:avoid}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}input,select{border:0;padding:2px;min-height:0}.summary{grid-template-columns:repeat(3,1fr)}.stat{background:white}.remove{display:none}th,td{padding:7px;border-color:#ccc}.suggestions{display:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+    <div class="top-inner">
+        <div class="logo">TL</div>
+        <div><h1>Grupo TL</h1><p>Conferência de embarque</p></div>
+    </div>
+</header>
+<main class="wrap">
+    <section class="intro">
+        <h2>Vamos conferir o embarque</h2>
+        <p>Preencha os dados e adicione os produtos da conferência.</p>
+    </section>
+
+    <section class="card">
+        <h3>
+            <div class="card-title-left"><span class="step">1</span>Dados do embarque</div>
+            <span class="sync-badge" id="syncStatus">Modo Local</span>
+        </h3>
+        <div class="fields">
+            <div class="field"><label for="date">Data do embarque</label><input id="date" type="date"></div>
+            <div class="field"><label for="checker">Responsável pela conferência</label><input id="checker" placeholder="Nome do responsável"></div>
+            <div class="field">
+                <label for="origin">Base de origem</label>
+                <select id="origin">
+                    <option value="">Selecione a origem...</option>
+                    <option value="Manaus">Manaus</option>
+                    <option value="Barcelos">Barcelos</option>
+                    <option value="SGC">SGC</option>
+                    <option value="NON">NON</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="destination">Base de destino principal</label>
+                <select id="destination">
+                    <option value="">Selecione o destino...</option>
+                    <option value="Manaus">Manaus</option>
+                    <option value="Barcelos">Barcelos</option>
+                    <option value="SGC">SGC</option>
+                    <option value="NON">NON</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h3>
+            <div class="card-title-left"><span class="step">2</span>Adicionar produtos</div>
+        </h3>
+        
+        <div class="sku-entry" style="margin-top:15px">
+            <div class="field">
+                <label for="search">Produto ou código SKU</label>
+                <input id="search" autocomplete="off" placeholder="Digite o nome ou código">
+                <div class="suggestions hidden" id="suggestions"></div>
+            </div>
+            <div class="field">
+                <label for="qty">Nº de paletes</label>
+                <input id="qty" type="number" min="1" step="1" inputmode="numeric" placeholder="Qtd">
+            </div>
+        </div>
+        <div class="selected" id="selectedLabel"></div>
+        
+        <div class="no-print" style="margin-top:10px">
+            <button class="secondary" type="button" id="toggleBoxes" style="min-height: 38px; padding: 8px 12px;">＋ Informar caixas (opcional)</button>
+            <div class="optional-box hidden" id="boxPanel">
+                <div class="field">
+                    <label for="boxQty">Quantidade de caixas</label>
+                    <input id="boxQty" type="number" min="0" step="1" inputmode="numeric" placeholder="Deixe 0 se não precisar" value="0" disabled>
+                </div>
+            </div>
+        </div>
+        
+        <div class="add-row no-print">
+            <button class="primary" id="addBtn" disabled>+ Adicionar produto</button>
+            <button class="darkbtn" id="closeTripBtn" type="button">Encerrar Caminhão <span id="currentTruckLabel">1</span></button>
+        </div>
+        <p class="hint">Adicione os itens do caminhão atual. Clique em Encerrar para avançar para o próximo caminhão.</p>
+    </section>
+
+    <section class="card">
+        <h3>
+            <div class="card-title-left"><span class="step">3</span>Produtos conferidos (Todos os caminhões)</div>
+        </h3>
+        
+        <div class="report-head">
+            <h2>Relatório de conferência de embarque</h2>
+            <p>Grupo TL</p>
+        </div>
+        <div class="report-meta">
+            <div><small>Data do embarque</small><strong id="rDate">—</strong></div>
+            <div><small>Responsável</small><strong id="rChecker">—</strong></div>
+            <div><small>Base de origem</small><strong id="rOrigin">—</strong></div>
+            <div><small>Base de destino</small><strong id="rDestination">—</strong></div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cam.</th>
+                        <th>Produto</th>
+                        <th>SKU</th>
+                        <th class="num">Paletes</th>
+                        <th>Destino</th>
+                        <th class="num box-col hidden">Caixas</th>
+                        <th class="no-print">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="itemsList">
+                    <tr><td colspan="7" class="empty">Nenhum produto adicionado ainda.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="actions no-print">
+            <button class="darkbtn" id="pdfBtn">Encerrar Embarque (Gerar PDF)</button>
+            <button class="secondary" id="exportBtn">Exportar CSV</button>
+            <button class="danger" id="clearBtn">Limpar Dados</button>
+        </div>
+        <p class="status">As alterações são guardadas automaticamente neste dispositivo.</p>
+    </section>
+    
+    <div class="footer">Conferência de Embarque · Grupo TL</div>
+</main>
+<div class="notice" id="notice"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const norm = s => String(s??'').trim().toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => new Intl.NumberFormat('pt-BR').format(n);
+
+function today() {
+    let d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+let noticeTimeout;
+function notice(msg) {
+    clearTimeout(noticeTimeout);
+    $('notice').textContent = msg;
+    $('notice').classList.add('show');
+    noticeTimeout = setTimeout(() => $('notice').classList.remove('show'), 3500);
+}
+
+const BASE_SKUS=[{"code":"344589","name":"AGUA MINERAL PURISSIMA 370ML"},{"code":"288134","name":"AGUA MINERAL PURISSIMA 510ML"},{"code":"2538","name":"ANTARCTICA PILSEN 600ML"},{"code":"1743","name":"ANTARCTICA PILSEN GFA VD 1L COM TTC"},{"code":"9067","name":"ANTARCTICA PILSEN LATA 350ML SH C/12 NPAL"},{"code":"9224","name":"ANTARCTICA PILSEN LT 269ML SH TRANSP C/15 NPAL"},{"code":"11503","name":"ANTARCTICA SUBZERO LT 269ML SH C15 NPAL"},{"code":"34459","name":"BALA BRAZILIAN COFFEE 108G"},{"code":"34412","name":"BALA MASTIGAVEL MINT HORTELA 500G"},{"code":"34413","name":"BALA MASTIGAVEL MOLE SORTIDA FLOREST"},{"code":"34416","name":"BALA MENTA FLORESTAL 500G"},{"code":"34460","name":"BALINHA CORACAO MORANGO 108G"},{"code":"36283","name":"BALLENA CREME CHOC CARAM C TEQUILA GFA VD 750 ML"},{"code":"36281","name":"BALLENA CREME DE COCO COM TEQUILA GFA VD 750 ML"},{"code":"36280","name":"BALLENA CREME MORANGO C TEQUILA GFA VD 750 ML"},{"code":"10389","name":"BARE GUARANA LATA 350ML CAIXA C/12 NPAL"},{"code":"17163","name":"BARE GUARANA PET 1L CAIXA C/6"},{"code":"2357","name":"BARE GUARANA PET 2L CAIXA C/6"},{"code":"35620","name":"BEATS GREEN MIX LONG NECK 269ML SIX-PACK SH C/4"},{"code":"33738","name":"BEATS RED MIX LN 269ML SIX-PACK SH C/2"},{"code":"33734","name":"BEATS RED MIX LT 269ML SH C/8"},{"code":"21533","name":"BLACK STONE GARRAFA VIDRO 1 L"},{"code":"1695","name":"BRAHMA CHOPP GFA VD 1L COM TTC"},{"code":"1898","name":"BRAHMA CHOPP LT 269ML SH C15 NPAL"},{"code":"20498","name":"BRAHMA DUPLO MALTE LT SLEEK 350ML SH C 12"},{"code":"13839","name":"BUDWEISER LT 269ML CX C/8 FRIDGE PACK"},{"code":"17808","name":"BUDWEISER OW 330ML CX C/24"},{"code":"22009","name":"CHICLETE ADAMS HORTELA CAIXINHA 2.8G CX C/100"},{"code":"37472","name":"CHICLETE ADAMS TUTTI FRUTTI CAIXINHA 2,8G"},{"code":"31394","name":"CORONA CERO N LN 330MLSIX P BASKET CX4 EXP CHILE"},{"code":"27866","name":"CORONA CERO SUNBREW N LONG NECK 330 ML SIX-PACK BASKET CX C 4"},{"code":"18836","name":"CORONA EXTRA N LONG NECK 330ML CX C/24 NPAL"},{"code":"20651","name":"CORONA EXTRA N LT SLEEK 350ML C/8 CX CARTAO"},{"code":"18780","name":"CORONITA EXTRA N OW 210ML CX C/4 SIX PACK"},{"code":"34654","name":"FLOPITO PIRULITO CORACAO VERMELHO PCT PLAST 500G"},{"code":"34417","name":"FLORESTAL BALINHA CORAC MORANGO PCT PLAST 500G"},{"code":"7981","name":"GATORADE LARANJA PET 500ML SIXPACK"},{"code":"7977","name":"GATORADE UVA PET 500ML SIXPACK"},{"code":"11556","name":"GUARANA ANTARCTICA ZERO PET 1L CAIXA C/6"},{"code":"8841","name":"GUARANA ANTARCTICA ZERO PET 2L CAIXA C/6"},{"code":"9085","name":"GUARANA CHP ANTARCTICA DIET LATA 350ML SH C/12 NPAL"},{"code":"2353","name":"GUARANA CHP ANTARCTICA DIET PET 2L CAIXA C/6"},{"code":"9084","name":"GUARANA CHP ANTARCTICA LATA 350ML SH C/12 NPAL"},{"code":"14844","name":"GUARANA CHP ANTARCTICA LT 269ML SH C/15"},{"code":"2132","name":"GUARANA CHP ANTARCTICA PET 1L CAIXA C/6 NOVA RIO"},{"code":"2349","name":"GUARANA CHP ANTARCTICA PET 2L CAIXA C/6"},{"code":"29733","name":"HALLS MELANCIA ENVELOPE 28G CX C/21"},{"code":"24168","name":"MICHELOB ULTRA N LONG NECK 330ML SIX-PACK SHRINK C/4"},{"code":"4262","name":"MICHELOB ULTRA N LT SLEEK 350ML C 8 CX CARTAO"},{"code":"22830","name":"MONTILLA CARTA OURO GARRAFA VIDRO 1 L"},{"code":"30117","name":"NOVA AQUA AGUA MIN S GAS GFA PET 350ML CX12"},{"code":"2546","name":"ORIGINAL 600ML"},{"code":"29253","name":"ORIGINAL GFA VD 1L"},{"code":"21946","name":"ORIGINAL LT 269ML SH C15 NPAL"},{"code":"14340","name":"ORIGINAL ONE WAY 300ML CXPAP12"},{"code":"9096","name":"PEPSI COLA LATA 350ML SH C/12 NPAL"},{"code":"7703","name":"PEPSI COLA PET 1L CAIXA C/6"},{"code":"504","name":"PEPSI COLA PET 2L CAIXA C/6"},{"code":"9276","name":"PEPSI ZERO PET 2L CAIXA C/6"},{"code":"21791","name":"PIRASSUNUNGA 51 GARRAFA VIDRO 965ML"},{"code":"37937","name":"PURISSIMA AGUA MINERAL S GAS GFA PET 2LT CX9"},{"code":"29370","name":"PURISSIMA AGUA MINERAL S GAS GFA PET 370ML FD 12"},{"code":"28813","name":"PURISSIMA AGUA MINERAL S GAS GFA PET 510ML FD C/12"},{"code":"28818","name":"PURISSIMA AGUA MINERAL S GAS PET 2L FD 6*"},{"code":"24409","name":"QUINTA DO MORGADO VINHO TINTO SUAVE GFA VD 750 ML"},{"code":"21531","name":"RAJSKA ORIGINAL GARRAFA VIDRO 1 L"},{"code":"19225","name":"RED BULL BR LATA 250ML CX C 24 NPAL"},{"code":"19229","name":"RED BULL BR LATA 250ML SIX PACK NPAL"},{"code":"29891","name":"ROCKS DRY GIN GARRAFA VIDRO 1 L"},{"code":"21532","name":"ROCKS DRY GIN GARRAFA VIDRO 995ML"},{"code":"29274","name":"ROCKS GIN SUNSET GARRAFA VIDRO 1 L"},{"code":"22543","name":"ROCKS STRAWBERRY GARRAFA VIDRO 1 L"},{"code":"23269","name":"SKOL BEATS GT LONG NECK 269ML SIX-PACK SH C/4"},{"code":"23271","name":"SKOL BEATS SENSES LONG NECK 269ML SIX-PACK SH C/4"},{"code":"1388","name":"SKOL GFA VD 1L 2.99"},{"code":"9068","name":"SKOL LATA 350ML SH C/12 NPAL"},{"code":"1703","name":"SKOL LT 269ML SH C/15"},{"code":"18856","name":"SKOL LT 269ML SH C/15 MULTPACK 15"},{"code":"1745","name":"SKOL LT 269ML SH C15 NPAL"},{"code":"21632","name":"SPATEN N LN 355ML SIXPACK SH C/4"},{"code":"30942","name":"SPATEN N LONG NECK 330ML SIX-PACK SHRINK C/4"},{"code":"21658","name":"SPATEN N LT SLEEK 350ML CX CART C 12"},{"code":"21668","name":"SPATEN N ONE WAY 600ML CX C/12 NP ARTE"},{"code":"32500","name":"STELLA ART PUR GOLD LT SL 350ML C8 CX CT"},{"code":"18807","name":"STELLA ARTOIS LONG NECK 330ML SIX-PACK SHRINK C/4"},{"code":"29580","name":"STELLA ARTOIS PURE GOLD LONG NECK 330ML SP SH C/4"},{"code":"38172","name":"STELLA ARTOIS PURE GOLD ONE WAY 600ML CX C12 NP"},{"code":"9089","name":"SUKITA LATA 350ML SH C/12 NPAL"},{"code":"253","name":"SUKITA PET 1L CAIXA C/6"},{"code":"503","name":"SUKITA PET 2L CAIXA C/6"},{"code":"38833","name":"TAMPICO REFRESCO FRUTAS CITRICAS GARRAFA PLAST 1L CX12"},{"code":"38601","name":"TAMPICO REFRESCO FRUTAS CITRICAS GARRAFA PLAST 250ML SH C12"},{"code":"38729","name":"TAMPICO REFRESCO FRUTAS CITRICAS GFA PET 1,5L SH C9"},{"code":"38835","name":"TAMPICO REFRESCO FRUTAS CITRICAS GFA PET 450ML CX15"},{"code":"38603","name":"Tampico Uva 250ml"},{"code":"38607","name":"Tampico Uva 450ml"},{"code":"29199","name":"TANG REFRESCO EM PO LARANJA PCT 18G DP C/18"},{"code":"29209","name":"TANG REFRESCO EM PO MARACUJA PCT 18G DP C/18"},{"code":"29207","name":"TANG REFRESCO EM PO MORANGO PCT 18G DP C/18"},{"code":"29215","name":"TANG REFRESCO EM PO UVA PCT 18G DP C/18"},{"code":"9091","name":"TONICA ANTARCTICA LATA 350ML SH C/12 NPAL"},{"code":"36683","name":"VIRROSAS MOLHO INGLES FRASCO PLASTICO 150 ML CX C/12"},{"code":"36653","name":"VIRROSAS MOLHO PIMENTA FRASCO PLASTICO 150 ML CX C/12"},{"code":"36584","name":"VIRROSAS VINAGRA ALCOOL GFA PLAST 750ML CX C/12"},{"code":"36588","name":"VIRROSAS VINAGRE ALC COLOR GFA PLAST 750ML CX C/12"},{"code":"29073","name":"VODKA TRIDESTILADA SKARLOFF 6X965ML"}];
+
+let products = [...BASE_SKUS];
+let items = [];
+let currentTruck = 1;
+let selected = null;
+
+function loadLocal() {
+    try {
+        let saved = localStorage.getItem('tl_conferencia_data_v2');
+        if (saved) {
+            let data = JSON.parse(saved);
+            if (data.meta) {
+                $('date').value = data.meta.date || today();
+                $('checker').value = data.meta.checker || '';
+                $('origin').value = data.meta.origin || '';
+                $('destination').value = data.meta.destination || '';
+            }
+            if (data.items) items = data.items;
+            if (data.currentTruck) {
+                currentTruck = data.currentTruck;
+                $('currentTruckLabel').textContent = currentTruck;
+            }
+        } else {
+            $('date').value = today();
+        }
+    } catch(e) {
+        $('date').value = today();
+    }
+}
+
+function saveLocal() {
+    try {
+        let meta = {
+            date: $('date').value,
+            checker: $('checker').value,
+            origin: $('origin').value,
+            destination: $('destination').value
+        };
+        localStorage.setItem('tl_conferencia_data_v2', JSON.stringify({ currentTruck, items, meta }));
+    } catch(e) {}
+}
+
+['date', 'checker', 'origin', 'destination'].forEach(id => {
+    $(id).addEventListener('input', saveLocal);
+    $(id).addEventListener('change', saveLocal);
+});
+
+function clearSelection() {
+    $('search').value = '';
+    $('qty').value = '';
+    $('selectedLabel').textContent = '';
+    $('suggestions').classList.add('hidden');
+    selected = null;
+    $('addBtn').disabled = true;
+}
+
+function render() {
+    let units = items.reduce((s, i) => s + (i.pallets || 0), 0);
+    let boxes = items.reduce((s, i) => s + (i.boxes || 0), 0);
+    let showBoxes = items.some(i => (i.boxes || 0) > 0);
+    
+    document.querySelectorAll('.box-col').forEach(el => el.classList.toggle('hidden', !showBoxes));
+    
+    $('itemsList').innerHTML = items.length ? items.map((i, n) => `
+        <tr>
+            <td><strong>${i.truck || 1}</strong></td>
+            <td>${esc(i.name)}</td>
+            <td>${esc(i.code)}</td>
+            <td class="num">${fmt(i.pallets || 0)}</td>
+            <td>${esc(i.destination || $('destination').value)}</td>
+            <td class="num box-col ${showBoxes ? '' : 'hidden'}">${fmt(i.boxes || 0)}</td>
+            <td class="no-print"><button class="secondary remove" data-remove="${n}">Excluir</button></td>
+        </tr>`).join('') + `
+        <tr class="report-total">
+            <td colspan="3">Total (Todos Caminhões)</td>
+            <td class="num">${fmt(units)}</td>
+            <td></td>
+            <td class="num box-col ${showBoxes ? '' : 'hidden'}">${fmt(boxes)}</td>
+            <td class="no-print"></td>
+        </tr>` : '<tr><td colspan="7" class="empty">Nenhum produto adicionado ainda.</td></tr>';
+        
+    document.querySelectorAll('.remove').forEach(b => {
+        b.onclick = () => {
+            items.splice(Number(b.dataset.remove), 1);
+            render();
+            saveLocal();
+        };
+    });
+
+    $('rDate').textContent = $('date').value || '—';
+    $('rChecker').textContent = $('checker').value || '—';
+    $('rOrigin').textContent = $('origin').value || '—';
+    $('rDestination').textContent = $('destination').value || '—';
+}
+
+$('search').oninput = () => {
+    selected = null;
+    $('selectedLabel').textContent = '';
+    $('addBtn').disabled = true;
+    let q = norm($('search').value);
+    
+    if (!q) {
+        $('suggestions').classList.add('hidden');
+        return;
+    }
+    
+    let matches = products.filter(p => norm(p.name).includes(q) || norm(p.code).includes(q)).slice(0, 10);
+    let box = $('suggestions');
+    box.innerHTML = matches.length ? matches.map((p, i) => `
+        <div class="suggestion" data-pick="${i}">
+            <strong>${esc(p.name)}</strong>
+            <small>SKU: ${esc(p.code)}</small>
+        </div>`).join('') : '<div class="suggestion">Não encontrado.</div>';
+    
+    box.classList.remove('hidden');
+    box.querySelectorAll('[data-pick]').forEach(b => {
+        b.onclick = () => {
+            selected = matches[Number(b.dataset.pick)];
+            $('search').value = selected.name;
+            $('selectedLabel').textContent = 'Selecionado: ' + selected.code;
+            $('suggestions').classList.add('hidden');
+            $('addBtn').disabled = false;
+            $('qty').focus();
+        };
+    });
+};
+
+document.addEventListener('click', e => {
+    if (!e.target.closest('.field')) $('suggestions').classList.add('hidden');
+});
+
+$('addBtn').onclick = () => {
+    if (!selected) return;
+    
+    let pallets = Number($('qty').value);
+    let boxes = Number($('boxQty').value || 0);
+    let dest = $('destination').value || 'Não informado';
+    
+    if (!Number.isInteger(pallets) || pallets < 1) {
+        notice('Informe a quantidade de paletes (mín. 1).');
+        $('qty').focus();
+        return;
+    }
+    if (!Number.isInteger(boxes) || boxes < 0) {
+        notice('Caixas inválidas.');
+        return;
+    }
+    
+    let existing = items.find(i => i.code === selected.code && i.truck === currentTruck && i.destination === dest);
+    if (existing) {
+        existing.pallets = (existing.pallets || 0) + pallets;
+        existing.boxes = (existing.boxes || 0) + boxes;
+    } else {
+        items.push({
+            code: selected.code, 
+            name: selected.name, 
+            pallets, 
+            boxes,
+            truck: currentTruck,
+            destination: dest
+        });
+    }
+    
+    clearSelection();
+    render();
+    saveLocal();
+    notice('Produto adicionado ao Caminhão ' + currentTruck);
+    $('search').focus();
+};
+
+$('qty').onkeydown = e => { if (e.key === 'Enter' && !$('addBtn').disabled) $('addBtn').click() };
+
+$('closeTripBtn').onclick = () => {
+    currentTruck++;
+    $('currentTruckLabel').textContent = currentTruck;
+    saveLocal();
+    notice(`Viagem Fechada! Preparando Caminhão ${currentTruck}.`);
+};
+
+$('toggleBoxes').onclick = () => {
+    let open = $('boxPanel').classList.toggle('hidden');
+    $('boxQty').disabled = !open;
+    $('toggleBoxes').textContent = open ? '− Ocultar caixas' : '＋ Informar caixas (opcional)';
+    if (!open) $('boxQty').value = '0';
+};
+
+$('clearBtn').onclick = () => {
+    if(!confirm('Deseja limpar todos os dados preenchidos?')) return;
+    items = [];
+    currentTruck = 1;
+    ['checker','origin','destination'].forEach(id => $(id).value = '');
+    $('date').value = today();
+    $('currentTruckLabel').textContent = currentTruck;
+    clearSelection();
+    render();
+    saveLocal();
+    notice('Dados limpos.');
+};
+
+$('exportBtn').onclick = () => {
+    if(!items.length) { notice('Sem produtos para exportar.'); return; }
+    let rows = [
+        ['CONFERÊNCIA DE EMBARQUE'],
+        ['Data', $('date').value], ['Responsável', $('checker').value],
+        ['Origem', $('origin').value], ['Destino', $('destination').value],
+        [],
+        ['Caminhão', 'SKU', 'Produto', 'Paletes', 'Destino', 'Caixas'],
+        ...items.map(i => [i.truck || 1, i.code, i.name, i.pallets || 0, i.destination || '-', i.boxes || 0]),
+        [],
+        ['Total de paletes', items.reduce((s, i) => s + (i.pallets || 0), 0)]
+    ];
+    let csv = '\ufeff' + rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(';')).join('\r\n');
+    let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+    let url = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = `conferencia_embarque_${today()}.csv`;
+    a.click();
+};
+
+$('pdfBtn').onclick = () => {
+    if(!items.length) { notice('Sem produtos para gerar PDF.'); return; }
+    
+    let consolidated = [];
+    items.forEach(it => {
+        let existing = consolidated.find(c => c.code === it.code && c.destination === it.destination);
+        if (existing) {
+            existing.pallets += (it.pallets || 0);
+            existing.boxes += (it.boxes || 0);
+        } else {
+            consolidated.push({...it}); 
+        }
+    });
+    
+    const enc = s => String(s??'').replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)').replace(/[^\x20-\x7E\xA0-\xFF]/g, ch => ({'\u2013':'-','\u2014':'-','\u2022':'-','\u00a0':' '}[ch]||'?'));
+    const cp = s => String(s??'').replace(/[\u2013\u2014\u2022\u00a0]/g, ch => ({'\u2013':'-','\u2014':'-','\u2022':'-','\u00a0':' '}[ch]));
+    const lines = [];
+    const add = (t, x, y, size=10, bold=false) => lines.push(`0.12 0.14 0.16 rg BT /${bold?'F2':'F1'} ${size} Tf ${x} ${y} Td (${enc(cp(t))}) Tj ET`);
+    const rgb = hex => { const h = String(hex||'#FFFFFF').replace('#',''); return [0,2,4].map(i=>(parseInt(h.slice(i,i+2),16)/255).toFixed(3)).join(' '); };
+    const rect = (x, y, w, h, stroke='#CBD8E8', fill=null) => { if (fill) lines.push(`${rgb(fill)} rg ${x} ${y} ${w} ${h} re f`); lines.push(`${rgb(stroke)} RG 0.6 w ${x} ${y} ${w} ${h} re S`); };
+    
+    let y = 800;
+    lines.push('0.12 0.14 0.16 rg'); 
+    add('GRUPO TL', 40, y, 18, true); y-=22; 
+    add('Relatorio de conferencia de embarque consolidada', 40, y, 13, true); y-=30;
+    
+    const meta = [
+        ['Data do embarque', $('date').value || '-'], ['Responsavel', $('checker').value || '-'],
+        ['Base de origem', $('origin').value || '-'], ['Destino Principal', $('destination').value || '-']
+    ];
+    
+    const colW = 257, rowH = 34, mx = 40; 
+    meta.forEach((m, i) => {
+        let col = i%2, row = Math.floor(i/2), x = mx + col*(colW+8), yy = y - row*(rowH+6);
+        rect(x, yy-rowH, colW, rowH);
+        add(m[0].toUpperCase(), x+7, yy-12, 7, false);
+        add(m[1], x+7, yy-26, 10, true);
+    }); 
+    y -= 2*(rowH+6)+20;
+    
+    const showBoxes = consolidated.some(i => (i.boxes||0) > 0);
+    
+    const widths = showBoxes ? [260, 70, 115, 70] : [300, 70, 145];
+    const headers = showBoxes ? ['Produto', 'Paletes', 'Destino', 'Caixas'] : ['Produto', 'Paletes', 'Destino'];
+    
+    const xs = [40]; 
+    for(let i=1; i<widths.length; i++) xs[i] = xs[i-1] + widths[i-1]; 
+    
+    const tableW = widths.reduce((a,b)=>a+b,0), rowHeight = 36, headerHeight = 27;
+    const drawHeader = () => {
+        rect(40, y-headerHeight, tableW, headerHeight, '#CBD8E8', '#FFFFFF');
+        headers.forEach((h, i) => add(h, xs[i]+6, y-17, 9, true));
+        y -= headerHeight;
+    };
+    
+    drawHeader();
+    const cleanName = s => String(s??'').replace(/\s+/g,' ').trim();
+    
+    consolidated.forEach((it, idx) => {
+        if(y < 90) {
+            add('(continua)', 500, 35, 8); y = 800;
+            add('GRUPO TL - Conferencia de embarque (continua)', 40, y, 12, true); y -= 28;
+            drawHeader();
+        }
+        rect(40, y-rowHeight, tableW, rowHeight, '#CBD8E8', idx%2 ? '#F7F9FB' : '#FFFFFF');
+        
+        let name = cleanName(it.name);
+        if (name.length > 50) name = name.slice(0, 49) + '…';
+        add(name, xs[0]+6, y-14, 8.5, false);
+        add('SKU: ' + String(it.code??''), xs[0]+6, y-27, 7, false);
+        
+        add(String(it.pallets||0), xs[1]+6, y-21, 9, true);
+        
+        let dst = String(it.destination || '-');
+        if(dst.length > 20) dst = dst.slice(0, 19) + '…';
+        add(dst, xs[2]+6, y-21, 8.5, false);
+        
+        if (showBoxes) add(String(it.boxes||0), xs[3]+6, y-21, 9, true);
+        
+        y -= rowHeight;
+    });
+    
+    rect(40, y-rowHeight, tableW, rowHeight, '#CBD8E8', '#FFFFFF');
+    add('Total Consolidado', 46, y-21, 9, true);
+    add(String(consolidated.reduce((a, i) => a + (i.pallets || 0), 0)), xs[1]+6, y-21, 9, true);
+    if(showBoxes) add(String(consolidated.reduce((a, i) => a + (i.boxes || 0), 0)), xs[3]+6, y-21, 9, true);
+    y -= rowHeight+22;
+    
+    add('Caminhões envolvidos: ' + currentTruck, 40, y, 9, true); y-=15;
+    add('Total de paletes embarcados: ' + consolidated.reduce((a, i) => a + (i.pallets || 0), 0), 40, y, 9, true);
+
+    const stream = lines.join('\n') + '\n';
+    const objects = [];
+    objects[1] = '<< /Type /Catalog /Pages 2 0 R >>';
+    objects[2] = '<< /Type /Pages /Kids [3 0 R] /Count 1 >>';
+    objects[3] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>';
+    objects[4] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+    objects[5] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+    objects[6] = '<< /Length ' + stream.length + ' >>\nstream\n' + stream + 'endstream';
+    
+    let pdf = '%PDF-1.4\n%âãÏÓ\n', offsets = [0];
+    for (let i = 1; i < objects.length; i++) {
+        offsets[i] = pdf.length;
+        pdf += i + ' 0 obj\n' + objects[i] + '\nendobj\n';
+    }
+    let xref = pdf.length;
+    pdf += 'xref\n0 ' + objects.length + '\n0000000000 65535 f \n';
+    for (let i = 1; i < objects.length; i++) pdf += String(offsets[i]).padStart(10, '0') + ' 00000 n \n';
+    pdf += 'trailer\n<< /Size ' + objects.length + ' /Root 1 0 R >>\nstartxref\n' + xref + '\n%%EOF';
+    
+    const bytes = new Uint8Array(pdf.length);
+    for (let i = 0; i < pdf.length; i++) {
+        let c = pdf.charCodeAt(i);
+        if (c > 255) c = 63;
+        bytes[i] = c;
+    }
+    
+    const blob = new Blob([bytes], {type: 'application/pdf'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `conferencia_consolidada_${$('date').value||today()}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    notice('Relatório PDF consolidado gerado.');
+};
+
+loadLocal();
+render();
+</script>
+</body>
+</html>
